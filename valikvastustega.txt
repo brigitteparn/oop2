@@ -1,0 +1,204 @@
+pilt1.png
+Mida antud definitsioonis defineeritakse? Mis sobib lünka?
+alajaotuseks/osalõikudeks/Riemanni jaotuseks
+0
+
+pilt2.png
+Mida antud definitsioonis defineeritakse? Mis sobib lünka?
+Riemanni ülemintegraaliks...Riemanni alamintegraaliks/Darboux' ülemsummaks...Darboux' alamsummaks/ülemjaotuseks...alamjaotuseks
+1
+
+pilt3.png
+Vali õige märk.
+</>/=/≥/≤
+4
+
+pilt4.png
+Mis sobib lünka?
+T ⊃ R, st alajaotuse R iga jaotuspunkt on ka alajaotuse T jaotuspunkt...T₁ ∪ T₂/T ⊃ R, st alajaotuse R iga jaotuspunkt on ka alajaotuse T jaotuspunkt...T₁ ∩ T₂/T ⊂ R, st alajaotuse T iga jaotuspunkt on ka alajaotuse R jaotuspunkt...T₁ ∩ T₂/T ⊂ R, st alajaotuse T iga jaotuspunkt on ka alajaotuse R jaotuspunkt...T₁ ∪ T₂
+2
+
+pilt5.png
+Mida ütleb antud lause?
+alajaotuste peenendamisel ülemsummad kasvavad ja alamsummad kahanevad/alajaotuste peenendamisel ülemsummad ei kasva ja alamsummad ei kahane/alajaotuste peenendamisel ülemsummad kasvavad ja alamsummad ei kahane/alajaotuste peenendamisel ülemsummad ei kasva ja alamsummad kahanevad
+1
+
+pilt6.png
+Vali õige märk.
+</>/=/≥/≤
+4
+
+pilt7.png
+Kuidas defineeritakse Darboux' ülem- ja alamintegraali?
+sup{S(f,T): T ∈ T[a,b]}...inf{s(f,T): T ∈ T[a,b]}/inf{S(f,T): T ∈ T[a,b]}...sup{s(f,T): T ∈ T[a,b]}/sup{s(f,T): T ∈ T[a,b]}...inf{S(f,T): T ∈ T[a,b]}/inf{T: T ∈ T[a,b]}...sup{T: T ∈ T[a,b]}
+1
+
+pilt8.png
+Milline märk sobib kõikidesse lünkadesse?
+</>/≥/≤/=
+3
+
+pilt9.png
+Mis sobib lünka?
+Darboux' mõttes integreeruv/Riemanni lõpmatu summa/Riemanni mõttes integreeruv/Newtoni mõttes integreeruv
+2
+
+pilt10.png
+Mis on antud teoreemi nimi?
+Alajaotuste leiudumise kriteerium/Ülem- ja alamsummade kriteerium/Integreeruvuse kriteerium/Cauchy kriteerium uhtlase koonduvuse jaoks
+2
+
+pilt11.png
+Mis on antud lemma eelduseks?
+c∉(a,b)/f:[a,b]→ℝ tõkestatud/a<c<b & f:[a,b]→ℝ tõkestamata/a<c<b & f:[a,b]→ℝ tõkestatud/a<c<b & f:[a,b]→ℝ on Riemanni mõttes integreeruv
+2
+
+pilt12.png
+Vali õige eeldus.
+pidev/diferentseeruv/tõkestatud/konstantne
+0
+
+pilt13.png
+Vali õige eeldus.
+ühtlaselt pidev/pidevalt diferentseeruv/monotoonne tõkestatud/monotoonne tõkestamata/konstantne tõkestatud/kahanev tõkestatud/kasvav tõkestatud
+2
+
+pilt14.png
+Mida saab integraali kohta öelda?
+f'(c)(b−a)/f(c)*a/f(c)*b/f(c):(b−a)/f(c)(b−a)
+4
+
+pilt15.png
+Vali õige eeldus.
+ekstreemume/katkevuspunkte/sidususpunkte/kasvamisvahemikke/kahanemisvhemikke/katkendpunkte
+1
+
+pilt16.png
+Vali õige nimi.
+Integraalide summa omadus/Integraali arvuga korrutamise omadus/Integreeruvus igas osalõigus/Integraali aditiivsus
+2
+
+pilt17.png
+Vali õige nimi.
+Integraalide summa omadus/Integraali arvuga korrutamise omadus/Integreeruvus igas osalõigus/Integraali aditiivsus
+3
+
+pilt18.png
+Vali õige nimi.
+Integraalide summa omadus/Integraali arvuga korrutamise omadus/Integreeruvus igas osalõigus/Integraali aditiivsus
+1
+
+pilt19.png
+Vali õige nimi.
+Integraalide summa omadus/Integraali arvuga korrutamise omadus/Integreeruvus igas osalõigus/Integraali aditiivsus
+0
+
+pilt20.png
+Mida saame öelda funktsioonide f² ja fg kohta?
+mõlemad on pidevad/mõlemad on Riemanni mõttes integreeruvad/mõlemad on tõkestatud/mõlemad on monotoonsed
+1
+
+pilt21.png
+Millise järelduse ja millise eelduse saame teha?
+≥0...≥∫ₐᵇg(x)dx/≤0...≤∫ₐᵇg(x)dx/>0...>∫ₐᵇg(x)dx/≠0...≠∫ₐᵇg(x)dx/<0...<∫ₐᵇg(x)dx
+0
+
+pilt22.png
+Mis kehtib?
+∫ₐᵇ|f|(x)dx ≤ |∫ₐᵇf(x)dx|/|∫ₐᵇ|f|(x)dx| ≤ ∫ₐᵇ|f|(x)dx/|∫ₐᵇf(x)dx| = ∫ₐᵇ|f|(x)dx/∫ₐᵇf(x)dx ≤ ∫ₐᵇ|f|(x)dx/|∫ₐᵇf(x)dx| ≤ ∫ₐᵇ|f|(x)dx
+4
+
+pilt23.png
+Vali õige nimi teoreemile.
+Pidevate funktsioonide integraalarvutuse keskväärtusteoreem/Diferentsiaal-integraalarvutuse põhiteoreem/Newtoni-Leibnizi valem/Integraalarvutuse põhiteoreem/Diferentsiaalarvutuse põhiteoreem
+1
+
+pilt24.png
+Mida antud definitsioonis defineeritakse?
+jaotusfunktsiooni/tihedusfunktsiooni/alamfunktsiooni/lõppfunktsiooni/ülemunktsiooni/algfunktsiooni/kõrgfunktsiooni
+5
+
+pilt25.png
+Mida antud definitsioonis defineeritakse?
+määratud integraali/määramata integraali/määramispiirkonnata integraali/tähistamata integraali
+1
+
+pilt26.png
+Vali õige nimi teoreemile.
+Ositi integreerimise valem/Newtoni-Leibnizi valem/Muutuja vahetus
+1
+
+pilt27.png
+Vali õige eeldus.
+diferentseeruv/tõkestatud/konstantne/pidev
+3
+
+pilt28.png
+Vali õige nimi teoreemile.
+Ositi integreerimise valem/Newtoni-Leibnizi valem/Muutuja vahetus
+0
+
+pilt29.png
+Vali õige nimi teoreemile.
+Ositi integreerimise valem/Newtoni-Leibnizi valem/Muutuja vahetus
+2
+
+pilt30.png
+Milline piirväärtus on korrektne?
+lim l→∞ ∫ₐ∞f(x)dx/lim l→a ∫ₐ∞f(x)dx/lim a→∞ ∫ₐ∞f(x)dx/lim l→∞ ∫ₐˡf(x)dx
+3
+
+pilt31.png
+Vali õige hulk.
+<0/≥1/0≤/=0/=1/>1/∈(0,1)/∈[0,1]
+5
+
+pilt32.png
+Milline on päratu integraal?
+hajuv/kapseldunud/hajameelne/koonduv
+3
+
+pilt33.png
+Milline peab olema funktsioon igas osalõigus?
+integreeruv/pidev/diferentseeruv/monotoonne
+0
+
+pilt34.png
+Vali sobiv tekst.
+monotoonne...ülalt..sup/mittepositiivne...alt...inf/mittenegatiivne...alt..inf/mittenegatiivne...ülalt...sup
+3
+
+pilt35.png
+Mis tingimus on osas a) ja osas b)?
+koondub...koondub/hajub...hajub/koondub...hajub/hajub...koondub
+2
+
+pilt36.png
+Millest leidub piirväärtus?
+f ja g summast/f ja g jagatisest/ f ja g korrutisest/ g ja f jagatisest/g ja f vahest
+1
+
+pilt37.png
+Millest peab võtma päratu integraali?
+|f(x)|/-f(x)/f²(x)/1:f(x)
+0
+
+pilt38.png
+Mis tingimus on osas a) ja osas b)?
+koondub...koondub/hajub...hajub/koondub...hajub/hajub...koondub
+2
+
+pilt39.png
+Millest leidub piirväärtus?
+f ja g summast/f ja g jagatisest/ f ja g korrutisest/ g ja f jagatisest/g ja f vahest
+1
+
+pilt40.png
+Mida defineerib antud definitsioon?
+ühtlast koondumist/punkthaaval koondumist/punktiviisi koondumist/hulgaviisi koondumist/mitteühtlast koondumist
+2
+
+pilt41.png
+Mida defineerib antud definitsioon?
+ühtlast koondumist/punkthaaval koondumist/punktiviisi koondumist/hulgaviisi koondumist/mitteühtlast koondumist
+0
