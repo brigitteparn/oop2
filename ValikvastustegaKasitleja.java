@@ -43,8 +43,7 @@ public class ValikvastustegaKasitleja implements EventHandler<MouseEvent> {
 
     }
 
-    private void teeKusimus(Stage kusimusteLava, VBox juur, Map<Integer, List<String[]>> küsimused, KasOnKusitud kkk, int kpikkus) {
-
+    private String teeKusimus(Stage kusimusteLava, VBox juur, Map<Integer, List<String[]>> küsimused, KasOnKusitud kkk, int kpikkus) {
         int indeks = suvalineKusimus(küsimused.size());
         kkk.setFailiread();
         boolean onKusitud = kkk.kasJubaKüsitud(indeks);
@@ -78,7 +77,7 @@ public class ValikvastustegaKasitleja implements EventHandler<MouseEvent> {
             Button vastus = new Button("Vaata vastust");
             vastus.setOnMouseClicked(mouseEvent1 -> nupud.get(oigeIndeks).setBackground(new Background(new BackgroundFill(Color.GREEN,new CornerRadii(0),new Insets(0)))));
             Button edasi = new Button("Järgmine küsimus");
-            edasi.setOnMouseClicked(mouseEvent1 -> {return;});
+            //edasi.setOnMouseClicked(mouseEvent1 -> {return " ";});
             Button esilehele = new Button("Esilehele");
             esilehele.setOnMouseClicked(mouseEvent1 -> {
                 kkk.kustudaFail("kysitud_kusimused.txt");
@@ -104,7 +103,9 @@ public class ValikvastustegaKasitleja implements EventHandler<MouseEvent> {
             kusimusedOtsas.setTitle("Küsimused otsas");
             kusimusedOtsas.show();
             lava.hide();
+            kusimusteLava.hide();
         }
+        return "";
     }
 
     private Map<Integer, List<String[]>> failiLugeja(){
