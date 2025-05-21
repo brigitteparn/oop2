@@ -1,62 +1,84 @@
-package com.example.ruhmatoo_kaks;
+package com.example.oop_projekt2_0;
+
 import javafx.application.Application;
-import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.Random;
+
 
 public class Main extends Application {
-
-    public static void main(String[] args) {
-
-        launch();
-    }
+    private Stage pealava;
+    private final KysitudKusimused fillLog = new KysitudKusimused("naidatud_fill.txt");
 
     @Override
-    public void start(Stage peaLava) {
-        GridPane juur = new GridPane();
-        //akna servale ka ruumi
-        juur.setPadding(new Insets(100));
-        //muudame ruumi
-        juur.setHgap(2);
-        juur.setVgap(2);
-        juur.backgroundProperty().setValue(new Background(new BackgroundFill(Color.LIGHTPINK,new CornerRadii(0),new Insets(0))));
+    public void start(Stage lava) {
+        this.pealava = lava;
 
-        Background nuputaust = new Background(new BackgroundFill(Color.WHITE,new CornerRadii(0),new Insets(2)));
-        Button b1 = new Button("Lünktekstiga küsimused");
-        b1.setBackground(nuputaust);
-        Button b2 = new Button("Valikvastustega küsimused");
-        b2.setBackground(nuputaust);
-        Button b3 = new Button("Lõpp");
-        b3.setBackground(nuputaust);
+        // Menüünupud
+        Button nuppValik = new Button("Valikvastustega küsimused");
+        nuppValik.setMaxWidth(Double.MAX_VALUE);
+        nuppValik.setBackground(
+                new Background(new BackgroundFill(Color.WHITE, new CornerRadii(4), Insets.EMPTY))
+        );
+        nuppValik.setOnAction(e ->
+                new ValikvastustegaKasitleja(pealava).handle(null)
+        );
 
-        //b1.addEventHandler(MouseEvent.MOUSE_CLICKED,);
-        b2.addEventHandler(MouseEvent.MOUSE_CLICKED,new ValikvastustegaKasitleja(peaLava));
-        b3.setOnMouseClicked(mouseEvent -> System.exit(0));
+        Button nuppTäida = new Button("Täida lüngad");
+        nuppTäida.setMaxWidth(Double.MAX_VALUE);
+        nuppTäida.setBackground(
+                new Background(new BackgroundFill(Color.WHITE, new CornerRadii(4), Insets.EMPTY))
+        );
+        nuppTäida.setOnAction(e -> alustaLunk());
 
+        // Pink taust menüüks
+        VBox juur = new VBox(10, nuppValik, nuppTäida);
+        juur.setPadding(new Insets(20));
+        juur.setBackground(
+                new Background(new BackgroundFill(Color.LIGHTPINK, CornerRadii.EMPTY, Insets.EMPTY))
+        );
 
-
-
-        juur.add(b1,3,2);
-        juur.add(b2,3,3);
-        juur.add(b3,3,4);
-        //juur.getChildren().addAll(b1,b2,b3);
-        Scene scene = new Scene(juur,400,300);
-        peaLava.setScene(scene);
-        peaLava.setTitle("Mõistekaardid");
-        //akna suurus muutub?
-        peaLava.setResizable(true);
-        peaLava.show();
+        Scene stseen = new Scene(juur, 300, 150);
+        lava.setTitle("Peamenüü");
+        lava.setScene(stseen);
+        lava.show();
     }
 
-    public static int suvalineKusimus(int k) {
-        Random rand = new Random();
-        return rand.nextInt(k);
+    /** Käivitab järgmise täida-lüngad küsimuse või läheb tagasi menüüsse. */
+    public void alustaLunk() {
+        String fail = KusimusteHaldur.suvalineKasutamata(
+                "pildid", fillLog, "fill"
+        );
+        if (fail == null) {
+            fillLog.kustuta();
+            pealava.show();
+            return;
+        }
+        fillLog.lisa(fail);
+
+        String vastusteFail = "vastused/" + fail.replace(".png", ".txt");
+        String[] vastused = Failihaldur.loeVastused(vastusteFail);
+
+        String pildiTee = "pildid/" + fail;
+        LungadPaneel panel = new LungadPaneel(pildiTee, vastused, this, fail);
+
+        Stage täidaLava = new Stage();
+        täidaLava.setScene(new Scene(panel));
+        täidaLava.setTitle("Täida lüngad");
+        täidaLava.show();
+        pealava.hide();
+    }
+
+    /** Tagasi peamenüüsse. */
+    public void tagasiEsilehele() {
+        pealava.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

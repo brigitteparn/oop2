@@ -1,0 +1,4 @@
+inf
+ülemintegraaliks
+sup
+alamintegraaliks

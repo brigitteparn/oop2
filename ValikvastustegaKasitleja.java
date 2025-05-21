@@ -1,4 +1,4 @@
-package com.example.ruhmatoo_kaks;
+package com.example.oop_projekt2_0;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -12,148 +12,157 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import static com.example.ruhmatoo_kaks.Main.suvalineKusimus;
-
+/**
+ * Käitleb valikvastustega küsimusi.
+ * Iga küsimus kuvatakse vaid korra ja loetakse logifaili
+ * Õige vastuse korral värvitakse nupp roheliseks,
+ * Vale vastuse korral kuvatakse popup-aken tekstiga "Proovi uuesti!".
+ */
 public class ValikvastustegaKasitleja implements EventHandler<MouseEvent> {
-    private String failnimi = "valikvastustega.txt";
-    private Stage lava;
+    private final Stage pealava;
 
-    public ValikvastustegaKasitleja(Stage lava) {
-        this.lava= lava;
+    // Logihaldur, mis kirjutab näidatud piltide nimed faili
+    private final KysitudKusimused log = new KysitudKusimused("naidatud_valik.txt");
+
+    public ValikvastustegaKasitleja(Stage pealava) {
+        this.pealava = pealava;
     }
 
     @Override
-    public void handle(MouseEvent mouseEvent) {
-        Stage kusimusteLava = new Stage();
-        VBox juur = new VBox();
-
-        Map<Integer,List<String[]>> küsimused = failiLugeja();
-        KasOnKusitud kkk = new KasOnKusitud("kysitud_kusimused.txt");
-        int kpikkus = küsimused.size();
-        while(true){
-            teeKusimus(kusimusteLava,juur,küsimused,kkk,kpikkus);
-        }
-
+    public void handle(MouseEvent event) {
+        näitaKüsimust();
     }
 
-    private String teeKusimus(Stage kusimusteLava, VBox juur, Map<Integer, List<String[]>> küsimused, KasOnKusitud kkk, int kpikkus) {
-        int indeks = suvalineKusimus(küsimused.size());
-        kkk.setFailiread();
-        boolean onKusitud = kkk.kasJubaKüsitud(indeks);
-
-        if (!onKusitud) {
-            List<String[]> küsimus = küsimused.get(indeks);
-            System.out.println("file:matana2Pildid\\" + küsimus.get(0)[0]);
-            Image pilt = new Image("file:matana2Pildid\\" + küsimus.get(0)[0]);
-            ImageView kaetudPilt = new ImageView(pilt);
-
-            Text kusimus = new Text(küsimus.get(1)[0]);
-            int nuppe = küsimus.get(2).length;
-            int oigeIndeks = Integer.parseInt(küsimus.get(3)[0]);
-            List<Button> nupud = teeNupud(nuppe, küsimus.get(2));
-
-            juur.getChildren().addAll(kaetudPilt, kusimus);
-
-            int lisanupud = 0;
-            while (lisanupud != nuppe) {
-                boolean oige = false;
-                if (oigeIndeks == lisanupud) {
-                    oige = true;
-                }
-
-
-                nupud.get(lisanupud).addEventHandler(MouseEvent.MOUSE_CLICKED, new TagasisideLavaKasitleja(kusimusteLava, oige));
-                juur.getChildren().add(nupud.get(lisanupud));
-
-                lisanupud++;
+    /**
+     * Kuvab ühte juhuslikku, veel mitte näidatud küsimust.
+     * Kui küsimused on otsas, puhastab logi ja näitab menüüd.
+     */
+    private void näitaKüsimust() {
+        Map<Integer,List<String[]>> küsimused = laeKusimused();
+        List<Integer> saadaval = new ArrayList<>();
+        // Juba näidatud küsimuste väljafiltreerimine
+        for (var entry : küsimused.entrySet()) {
+            String fail = entry.getValue().get(0)[0].trim();
+            if (!log.onKasutud(fail)) {
+                saadaval.add(entry.getKey());
             }
-            Button vastus = new Button("Vaata vastust");
-            vastus.setOnMouseClicked(mouseEvent1 -> nupud.get(oigeIndeks).setBackground(new Background(new BackgroundFill(Color.GREEN,new CornerRadii(0),new Insets(0)))));
-            Button edasi = new Button("Järgmine küsimus");
-            //edasi.setOnMouseClicked(mouseEvent1 -> {return " ";});
-            Button esilehele = new Button("Esilehele");
-            esilehele.setOnMouseClicked(mouseEvent1 -> {
-                kkk.kustudaFail("kysitud_kusimused.txt");
-                lava.show();
-                kusimusteLava.hide();
-            });
-            juur.getChildren().addAll(vastus,edasi,esilehele);
-
-            Scene stseen = new Scene(juur);
-            kusimusteLava.setScene(stseen);
-            kusimusteLava.setTitle("Küsimused");
-            kusimusteLava.show();
-            lava.hide();
-        }
-        if(kkk.getFailiread() == kpikkus){
-            Stage kusimusedOtsas = new Stage();
-            HBox alamjuur = new HBox();
-            Text otsas = new Text("Küsimused on otsas");
-            alamjuur.getChildren().add(otsas);
-
-            Scene stseen = new Scene(alamjuur);
-            kusimusedOtsas.setScene(stseen);
-            kusimusedOtsas.setTitle("Küsimused otsas");
-            kusimusedOtsas.show();
-            lava.hide();
-            kusimusteLava.hide();
-        }
-        return "";
-    }
-
-    private Map<Integer, List<String[]>> failiLugeja(){
-        Map<Integer,List<String[]>> küsimused = new HashMap<>();
-
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(failnimi), StandardCharsets.UTF_8))){
-            String pilt = br.readLine().trim();
-            String küsimus = br.readLine().trim();
-            String[] valikvastused = br.readLine().trim().split("/");
-            String õigevastus = br.readLine().trim();
-            int lugeja = 0;
-            while(br.readLine() != null){
-
-                List<String[]> küsimusteKoostamine = new ArrayList<>();
-                küsimusteKoostamine.add(new String[]{pilt});
-                küsimusteKoostamine.add(new String[]{küsimus});
-                küsimusteKoostamine.add(valikvastused);
-                küsimusteKoostamine.add(new String[]{õigevastus});
-
-                küsimused.put(lugeja,küsimusteKoostamine);
-                lugeja++;
-
-                pilt = br.readLine().trim();
-                küsimus = br.readLine().trim();
-                valikvastused = br.readLine().trim().split("/");
-                õigevastus = br.readLine().trim();
-            }
-
-
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
 
-        return küsimused;
-    }
+        if (saadaval.isEmpty()) {
+            // Kui kõik küsimused näidatud, puhastab logi ja läheb tagasi menüüsse
+            log.kustuta();
+            pealava.show();
+            return;
+        }
 
-    private List<Button> teeNupud(int kuiPalju, String[] tekstid){
+        // Juhusliku küsimuse valimine
+        int valitud = saadaval.get(new Random().nextInt(saadaval.size()));
+        var andmed = küsimused.get(valitud);
+        String piltFail = andmed.get(0)[0].trim();
+        log.lisa(piltFail); // Märgib küsimuse logis näidatuk
+
+        String tekst = andmed.get(1)[0]; // Küsimuse tekst ja vastusevariandid
+        String[] valikud = andmed.get(2);
+        int õige = Integer.parseInt(andmed.get(3)[0]);
+
+        // Uus aken küsimuse kuvamiseks
+        Stage küsimusLava = new Stage();
+        VBox juur = new VBox(10);
+        juur.setPadding(new Insets(20));
+
+        ImageView pilt = new ImageView( // Pildi lisamine
+                new Image(Objects.requireNonNull(
+                        getClass().getResource("/pildid/" + piltFail)
+                ).toExternalForm())
+        );
+        Text küsimuseTekst = new Text(tekst); // Teksti lisamine
+        juur.getChildren().addAll(pilt, küsimuseTekst);
+
+        // Valikvastuste nupud
         List<Button> nupud = new ArrayList<>();
-        int indeks = 0;
-        while (kuiPalju!=0){
-            Button nupp = new Button(tekstid[indeks]);
+        VBox opsBox = new VBox(5);
+        for (int i = 0; i < valikud.length; i++) {
+            int idx = i;
+            Button nupp = new Button(valikud[i]);
+            nupp.setMaxWidth(Double.MAX_VALUE);
+            nupp.setOnMouseClicked(e -> {
+                if (idx == õige) {
+                    // Kui õige vastus, värvib roheliseks
+                    nupp.setBackground(new Background(new BackgroundFill(
+                            Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY
+                    )));
+                } else {
+                    // Kui vale vastus, tekib aken "Proovi veel! "
+                    new TagasisideAken(küsimusLava).handle(e);
+                }
+            });
             nupud.add(nupp);
-
-            kuiPalju--;
-            indeks++;
+            opsBox.getChildren().add(nupp);
         }
-        return nupud;
+        juur.getChildren().add(opsBox);
 
+        // Nuppude lisamine
+        Button vaataOige = new Button("Vaata õiget vastust");
+        vaataOige.setOnAction(e ->
+                nupud.get(õige).setBackground(new Background(new BackgroundFill(
+                        Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY
+                )))
+        );
+        Button edasi = new Button("Järgmine");
+        edasi.setOnAction(e -> {
+            küsimusLava.close();
+            näitaKüsimust();
+        });
+        Button esileht = new Button("Esilehele");
+        esileht.setOnAction(e -> {
+            log.kustuta();
+            pealava.show();
+            küsimusLava.close();
+        });
+
+        HBox ctrlBox = new HBox(10, vaataOige, edasi, esileht);
+        ctrlBox.setPadding(new Insets(10));
+        juur.getChildren().add(ctrlBox);
+
+        // Küsimuse aken
+        küsimusLava.setScene(new Scene(juur));
+        küsimusLava.setTitle("Valikvastustega küsimus");
+        küsimusLava.show();
+        pealava.hide();
+    }
+
+    // Laeb küsimused failist kusimused.txt
+    private Map<Integer,List<String[]>> laeKusimused() {
+        Map<Integer,List<String[]>> map = new LinkedHashMap<>();
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                getClass().getResourceAsStream("/valik/kusimused.txt"),
+                StandardCharsets.UTF_8
+        ))) {
+            String pilt; int idx = 0;
+            while ((pilt = br.readLine()) != null) {
+                String kys = br.readLine();
+                String[] ops = br.readLine().split("/");
+                String cor = br.readLine();
+
+                List<String[]> andmed = new ArrayList<>();
+                andmed.add(new String[]{pilt.trim()});
+                andmed.add(new String[]{kys.trim()});
+                andmed.add(Arrays.stream(ops)
+                        .map(String::trim)
+                        .toArray(String[]::new));
+                andmed.add(new String[]{cor.trim()});
+
+                map.put(idx++, andmed);
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException("Viga küsimuste faili lugemisel", ex);
+        }
+        return map;
     }
 }
